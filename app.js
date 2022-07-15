@@ -1,10 +1,13 @@
+// External Imports
 const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const loginRouter = require("./router/loginRouter")
 
 // Internal Imports
+const inboxRouter = require("./router/inboxRouter");
+const loginRouter = require("./router/loginRouter");
+const usersRouter = require("./router/usersRouter");
 const {
   notFoundHandler,
   errorHandler,
@@ -30,15 +33,15 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // Routing Set up
-app.use('/', loginRouter)
-// app.use('/users', usersRouter)
-// app.use('/inbox', inboxRouter)
+app.use("/", loginRouter);
+app.use("/users", usersRouter);
+app.use("/inbox", inboxRouter);
 
 // 404 Not Found Handler
-app.use(notFoundHandler)
+app.use(notFoundHandler);
 
 // Error Handling
-app.use(errorHandler)
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
   console.log(`App listening on PORT ${process.env.PORT}`);
